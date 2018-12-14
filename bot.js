@@ -1,9 +1,13 @@
+// Declaration of Variables
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
-var bulgecount = 0;
+var LocalStorage = require('node-localstorage').LocalStorage;
+localStorage = new LocalStorage('./localstorage');
+var bulgecount = localStorage.getItem('bulges');
+var startTime = new Date(localStorage.getItem('startTime'));
 
-var startTime, endTime;
+var endTime;
 var time;
 var seconds;
 
@@ -22,7 +26,6 @@ bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
-    startTimer();
     console.log("Ready!");
 });
 
@@ -44,11 +47,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 			break;
 			
 			case 'bulgecount':
-				bot.sendMessage({
-					to: channelID,
-                    message: bulgecount + ' Bulges noticed!'
-                })
-                bulgecount--;
+                bot.sendMessage({
+                    to: channelID,
+                    message: localStorage.getItem('bulges') + ' Bulges noticed!'
+                });
 			break;
         }
     }
@@ -56,33 +58,34 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     var messageLowercase = message.toLowerCase();
 
 	if (message.includes("bulge")) {
-		bot.sendMessage({
-			to: channelID,
-			message: 'OwO'
-		})
-		console.log('Bulge Noticed!');
-		bulgecount++;
+        bot.sendMessage({
+            to: channelID,
+            message: 'OwO'
+        });
+        bulgecount++;
+        localStorage.setItem('bulges', bulgecount);
+        console.log(bulgecount + ' Bulges Noticed!');
     }
 
     if (messageLowercase.includes("whats this") || messageLowercase.includes("what's this")) {
         bot.sendMessage({
             to: channelID,
             message: 'OwO?'
-        })
+        });
     }
 	
 	if (messageLowercase.includes("good bot")) {
-		bot.sendMessage({
-			to: channelID,
-			message: 'UwU'
-		})
+        bot.sendMessage({
+            to: channelID,
+            message: 'UwU'
+        });
 	}
 	
 	if (messageLowercase.includes("bad bot")) {
-		bot.sendMessage({
-			to: channelID,
-			message: 'ಥ_ಥ'
-		})
+        bot.sendMessage({
+            to: channelID,
+            message: 'ಥ_ಥ'
+        });
     }
 
 
@@ -90,7 +93,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         bot.sendMessage({
             to: channelID,
             message: 'ÒwÓ'
-        })
+        });
     }
 
     // So this part logs how long a server can go without saying the word 'vore'
@@ -106,18 +109,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         bot.sendMessage({
             to: channelID,
             message: user.toUpperCase() + ' HAS SPOKEN THE FORBIDDEN WORD!\nThis server has gone:\n' + days + ' days,\n' + hrs + ' hours,\n' + mnts + ' minutes, and\n' + seconds + ' seconds\nwithout saying the forbidden word!'
-        })
+        });
         startTimer();
     }
 });
 
 function startTimer() {
     startTime = new Date();
+    localStorage.setItem('startTime', startTime.toISOString());
     console.log("Resetting Timer!");
 }
 
 function stopTimer() {
+    console.log(startTime);
     endTime = new Date();
+    console.log(endTime);
     endTime -= startTime;
     console.log(endTime);
     return endTime;
