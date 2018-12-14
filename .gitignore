@@ -1,0 +1,12 @@
+auth.json
+*.sln
+*.njsproj
+*.sh
+*.bat
+
+.vs/
+.vscode/
+node_modules/
+bin/
+obj/
+localstorage/
