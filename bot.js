@@ -4,6 +4,7 @@ var logger = require('winston');
 var auth = require('./auth.json');
 var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./localstorage');
+// Retrieve variables from local storage (this was a PAIN IN THE ASS to get working)
 var bulgecount = localStorage.getItem('bulges');
 var startTime = new Date(localStorage.getItem('startTime'));
 
