@@ -4,13 +4,19 @@ var logger = require('winston');
 var auth = require('./auth.json');
 var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./localstorage');
-// Retrieve variables from local storage (this was a PAIN IN THE ASS to get working)
-var bulgecount = localStorage.getItem('bulges');
-var startTime = new Date(localStorage.getItem('startTime'));
+var bulges = new LocalStorage('./localstorage/bulges');
+var startTimes = new LocalStorage('./localstorage/startTimes');
+
+var bulgecount;
+var startTime;
+
+var globalBulgeCount = localStorage.getItem('globalBulges');
 
 var endTime;
 var time;
 var seconds;
+
+var serverID = 
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -47,25 +53,37 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				});
 			break;
 			
-			case 'bulgecount':
+            case 'bulgecount':
+                bulgecount = bulges.getItem(channelID);
                 bot.sendMessage({
                     to: channelID,
-                    message: localStorage.getItem('bulges') + ' Bulges noticed!'
+                    message: bulges.getItem(channelID) + ' Bulges noticed on this channel!'
                 });
-			break;
+            break;
+
+            case 'globalbulgecount':
+                bot.sendMessage({
+                    to: channelID,
+                    message: localStorage.getItem('globalBulges') + ' Bulges noticed globally!'
+                });
+            break;
         }
     }
 
     var messageLowercase = message.toLowerCase();
 
-	if (message.includes("bulge")) {
+    if (message.includes("bulge")) {
+        bulgecount = bulges.getItem(channelID);
         bot.sendMessage({
             to: channelID,
             message: 'OwO'
         });
         bulgecount++;
-        localStorage.setItem('bulges', bulgecount);
-        console.log(bulgecount + ' Bulges Noticed!');
+        bulges.setItem(channelID, bulgecount);
+        console.log(bulgecount + ' Bulges Noticed on channel:');
+        console.log(channelID);
+        globalBulgeCount++;
+        localStorage.setItem('globalBulges', globalBulgeCount);
     }
 
     if (messageLowercase.includes("whats this") || messageLowercase.includes("what's this")) {
@@ -99,7 +117,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     // So this part logs how long a server can go without saying the word 'vore'
     if (messageLowercase.includes("vore")) {
-        seconds = stopTimer() / 1000;
+        seconds = stopTimer(channelID) / 1000;
         var days = Math.floor(seconds / (3600*24));
         seconds  -= days*3600*24;
         var hrs   = Math.floor(seconds / 3600);
@@ -109,19 +127,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         bot.sendMessage({
             to: channelID,
-            message: user.toUpperCase() + ' HAS SPOKEN THE FORBIDDEN WORD!\nThis server has gone:\n' + days + ' days,\n' + hrs + ' hours,\n' + mnts + ' minutes, and\n' + seconds + ' seconds\nwithout saying the forbidden word!'
+            message: user.toUpperCase() + ' HAS SPOKEN THE FORBIDDEN WORD!\nThis channel has gone:\n' + days + ' days,\n' + hrs + ' hours,\n' + mnts + ' minutes, and\n' + seconds + ' seconds\nwithout saying the forbidden word!'
         });
-        startTimer();
+        startTimer(channelID);
     }
 });
-
-function startTimer() {
+// oooh boy this took ages to make
+function startTimer(channelID) {
     startTime = new Date();
-    localStorage.setItem('startTime', startTime.toISOString());
-    console.log("Resetting Timer!");
+    startTimes.setItem(channelID, startTime.toISOString());
+    console.log("Resetting timer on channel " + channelID);
 }
 
-function stopTimer() {
+function stopTimer(channelID) {
+    startTime = new Date(startTimes.getItem(channelID));
     console.log(startTime);
     endTime = new Date();
     console.log(endTime);
