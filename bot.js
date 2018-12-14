@@ -13,10 +13,7 @@ var startTime;
 var globalBulgeCount = localStorage.getItem('globalBulges');
 
 var endTime;
-var time;
 var seconds;
-
-var serverID = 
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
