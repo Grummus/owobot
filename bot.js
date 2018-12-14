@@ -132,7 +132,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         startTimer(channelID);
     }
 });
-
+// oooh boy this took ages to make
 function startTimer(channelID) {
     startTime = new Date();
     startTimes.setItem(channelID, startTime.toISOString());
