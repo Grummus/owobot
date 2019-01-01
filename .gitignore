@@ -10,3 +10,4 @@ node_modules/
 bin/
 obj/
 localstorage/
+package-lock.json
