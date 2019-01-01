@@ -47,7 +47,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				bot.sendMessage({
 					to: channelID,
 					message: 'Have some Bepis'
-				});
+                });
+                bulgecount = 68;
+                globalBulgeCount += 68;
+                localStorage.setItem('globalBulges', globalBulgeCount);
+                console.log("Setting bulgecount to 68");
+                bulges.setItem(channelID, bulgecount);
+
 			break;
 			
             case 'bulgecount':
@@ -64,6 +70,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: localStorage.getItem('globalBulges') + ' Bulges noticed globally!'
                 });
             break;
+
+            case 'reset':
+                bot.sendMessage({
+                    to: channelID,
+                    message: 'RESETTING COUNT FOR CHANNEL ' + channelID
+                });
+                console.log("RESETTING COUNT FOR CHANNEL " + channelID);
+                bulgecount = bulges.getItem(channelID);
+                bulges.setItem(channelID, 0);
+                globalBulgeCount -= bulgecount;
+                localStorage.setItem('globalBulges', globalBulgeCount);
+            break;
+
         }
     }
 
@@ -81,6 +100,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         console.log(channelID);
         globalBulgeCount++;
         localStorage.setItem('globalBulges', globalBulgeCount);
+        if(bulgecount == 69) {
+            console.log("69 reached!");
+            bot.sendMessage({
+                to: channelID,
+                message: '69 BULGES DETECTED!\nOWOWOWOWOWOWOWOWOWOWOWOWOWO'
+            });
+        }
     }
 
     if (messageLowercase.includes("whats this") || messageLowercase.includes("what's this")) {
