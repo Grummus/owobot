@@ -103,6 +103,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         globalBulgeCount++;
         localStorage.setItem('globalBulges', globalBulgeCount);
         // lil' easter egg ;)
+        if(bulgecount == 34) {
+            console.log("Halfway to 69");
+            bot.sendMessage({
+                to: channelID,
+                message: "♪ - uwu We're halfway there\nOWO, LIVIN ON A PRAYER! - ♪"
+            });
+        }
         if(bulgecount == 69) {
             console.log("69 reached!");
             bot.sendMessage({
@@ -130,13 +137,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         bot.sendMessage({
             to: channelID,
             message: 'ಥ_ಥ'
-        });
-    }
-    // Christian discord server mode
-    if (messageLowercase.includes("fuck")) {
-        bot.sendMessage({
-            to: channelID,
-            message: 'ÒwÓ'
         });
     }
 
