@@ -57,6 +57,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
 			break;
 			// Displays how many bulges have been noticed on a specific channel OwO
+			// end my suffering
             case 'bulgecount':
                 bulgecount = bulges.getItem(channelID);
                 bot.sendMessage({
