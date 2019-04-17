@@ -5,12 +5,15 @@ var auth = require('./auth.json');
 var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./localstorage');
 var bulges = new LocalStorage('./localstorage/bulges');
+var vores = new LocalStorage('./localstorage/vores');
 var startTimes = new LocalStorage('./localstorage/startTimes');
 
 var bulgecount;
 var startTime;
 
+var vorecount;
 var globalBulgeCount = localStorage.getItem('globalBulges');
+var globalVoreCount = localStorage.getItem('globalVore');
 
 var endTime;
 var seconds;
@@ -65,6 +68,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: bulges.getItem(channelID) + ' Bulges noticed on this channel!'
                 });
             break;
+            
+            case 'vwordcount':
+                vorecount = vores.getItem(channelID);
+                bot.sendMessage({
+                    to: channelID,
+                    message: vorecount + ' times the forbidden word has been spoken.'
+                });
+            break
             // A very important statistic
             case 'globalbulgecount':
                 bot.sendMessage({
@@ -72,6 +83,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: localStorage.getItem('globalBulges') + ' Bulges noticed globally!'
                 });
             break;
+            
+            case 'globalvwordcount':
+                bot.sendMessage({
+                    to: channelID,
+                    message: localStorage.getItem('globalVore') + ' times the forbidden word has been spoken globally.'
+                });
+            break;
+            
             // yet another testing command (use with caution as this affects the global bluge count)
             case 'reset':
                 bot.sendMessage({
@@ -143,6 +162,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     // So this part logs how long a server can go without saying the word 'vore'
     // oooh boy this took ages to make
     if (messageLowercase.includes("vore")) {
+        vorecount = vores.getItem(channelID);
+        vorecount++
+        vores.setItem(channelID, vorecount);
+        globalVoreCount++;
+        localStorage.setItem('globalVore', globalVoreCount);
         seconds = stopTimer(channelID) / 1000;
         var days = Math.floor(seconds / (3600*24));
         seconds  -= days*3600*24;
