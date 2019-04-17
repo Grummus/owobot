@@ -1,8 +1,8 @@
 auth.json
 *.sln
 *.njsproj
-*.sh
-*.bat
+
+
 
 .vs/
 .vscode/
