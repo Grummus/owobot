@@ -38,12 +38,12 @@ bot.on('ready', function (evt) {
 });
 
 bot.on('message', function (user, userID, channelID, message, evt) {
-	
+
     // Listen for messages that will start with `!`
     if (message.substring(0, 1) == '!') {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
-       
+
         args = args.splice(1);
         switch(cmd) {
             // testing command, pls ignore
@@ -68,7 +68,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: bulges.getItem(channelID) + ' Bulges noticed on this channel!'
                 });
             break;
-            
+
             case 'vwordcount':
                 vorecount = vores.getItem(channelID);
                 bot.sendMessage({
@@ -83,14 +83,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: localStorage.getItem('globalBulges') + ' Bulges noticed globally!'
                 });
             break;
-            
+
             case 'globalvwordcount':
                 bot.sendMessage({
                     to: channelID,
                     message: localStorage.getItem('globalVore') + ' times the forbidden word has been spoken globally.'
                 });
             break;
-            
+
             // yet another testing command (use with caution as this affects the global bluge count)
             case 'reset':
                 bot.sendMessage({
@@ -103,6 +103,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 globalBulgeCount -= bulgecount;
                 localStorage.setItem('globalBulges', globalBulgeCount);
             break;
+
+	    case 'help'
+		bot.sendMessage({
+			to: channelID,
+			message: 'Show bulge count for channel: !bulgecount \nShow global bulge count: !globalbulgecount'
+		});
+	    break;
 
         }
     }
@@ -144,14 +151,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             message: 'OwO?'
         });
     }
-	
+
 	if (messageLowercase.includes("good bot")) {
         bot.sendMessage({
             to: channelID,
             message: 'UwU'
         });
 	}
-	
+
 	if (messageLowercase.includes("bad bot")) {
         bot.sendMessage({
             to: channelID,
