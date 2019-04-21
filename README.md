@@ -13,3 +13,14 @@ See global stats with **!globalbulgecount**
 
 He also keeps track of the amount of time a channel can go without saying the forbidden word.  
 _"But what might this forbidden word be?"_ you might ask. Well if I tell you that, that would ruin the purpose.
+
+## Words from our satisfied users:
+
+_"It's actual cancer."_
+-ElectroZen
+
+_"Why was this even created?"_
+-Arctic Angel
+
+_"God dammit grummus"_
+-Wesenheimer
