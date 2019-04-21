@@ -69,7 +69,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 });
             break;
 
-            case 'vwordcount':
+            case 'forbiddenwordcount':
                 vorecount = vores.getItem(channelID);
                 bot.sendMessage({
                     to: channelID,
@@ -84,7 +84,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 });
             break;
 
-            case 'globalvwordcount':
+            case 'globalforbiddenwordcount':
                 bot.sendMessage({
                     to: channelID,
                     message: localStorage.getItem('globalVore') + ' times the forbidden word has been spoken globally.'
