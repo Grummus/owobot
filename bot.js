@@ -109,7 +109,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 localStorage.setItem('globalBulges', globalBulgeCount);
             break;
 
-	    case 'help':
+	    case 'owohelp':
                 bot.sendMessage({
 			to: channelID,
 			message: '```\nOwO Bot Help:\nShow bulge count for channel: !bulgecount \nShow global bulge count: !globalbulgecount\n```'
