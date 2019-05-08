@@ -24,3 +24,6 @@ _"Why was this even created?"_
 
 _"God dammit grummus"_
 -Wesenheimer
+
+_"I have much dedication to bulges"_
+-Cup of Gay
