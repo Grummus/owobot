@@ -1,6 +1,7 @@
 // Ye Olde Declaration of Variables
 var Discord = require('discord.io');
 var logger = require('winston');
+var colors = require('colors');
 var auth = require('./auth.json');
 var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./localstorage');
@@ -37,6 +38,11 @@ bot.on('ready', function (evt) {
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
     console.log("Ready!");
+});
+
+bot.on('disconnect', function(erMsg, code) {
+    console.log('------ Oopsie woopsie uwu, we make a fucky wucky, I disconnected with code'.red, code, 'for reason:'.red, erMsg, '------ '.red);
+    bot.connect();
 });
 
 bot.on('message', function (user, userID, channelID, message, evt) {
@@ -114,8 +120,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 			to: channelID,
 			message: 'OwO Bot Help:\n```\nShow bulge count for channel: !bulgecount \nShow global bulge count: !globalbulgecount\n```\n DiscordBots Page:https://discordbots.org/bot/517201738646945803'
 		})
-	    break;
+        break;
+        
+        case 'cease':
+                bot.sendMessage({
+                    to: channelID,
+                    message: 'bye bye',
+                });
 
+                bot.disconnect();
+        break;
         }
     }
     // yeet the caps from the incoming string
