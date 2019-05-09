@@ -112,7 +112,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 	    case 'owohelp':
                 bot.sendMessage({
 			to: channelID,
-			message: '```\nOwO Bot Help:\nShow bulge count for channel: !bulgecount \nShow global bulge count: !globalbulgecount\n```'
+			message: '```\nOwO Bot Help:\nShow bulge count for channel: !bulgecount \nShow global bulge count: !globalbulgecount\n```\nDiscordBots Page: https://discordbots.org/bot/517201738646945803'
 		})
 	    break;
 
