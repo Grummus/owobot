@@ -48,10 +48,7 @@ bot.on('disconnect', function(erMsg, code) {
 bot.on('message', function (user, userID, channelID, message, evt) {
     // Listen for messages that will start with `!`
     if (message.substring(0, 1) == '!') {
-	if (chatlog == true) {
-		console.log(user + ": " + message);
-	}
-
+	
         var args = message.substring(1).split(' ');
         var cmd = args[0];
 
@@ -74,8 +71,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 			// end my suffering
             case 'bulgecount':
                 bulgecount = bulges.getItem(channelID);
+		if (chatlog == true) {
+			console.log(user + ": " + message);
+		}
+
                 bot.sendMessage({
-                    to: channelID,
+               	    to: channelID,
                     message: bulges.getItem(channelID) + ' Bulges noticed on this channel!'
                 });
             break;
@@ -93,6 +94,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     to: channelID,
                     message: localStorage.getItem('globalBulges') + ' Bulges noticed globally!'
                 });
+
+if (chatlog == true) {
+		console.log(user + ": " + message);
+	}
+
             break;
 
             case 'globalforbiddenwordcount':
@@ -120,6 +126,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 			to: channelID,
 			message: 'OwO Bot Help:\n```\nShow bulge count for channel: !bulgecount \nShow global bulge count: !globalbulgecount\n```\n DiscordBots Page:https://discordbots.org/bot/517201738646945803'
 		})
+if (chatlog == true) {
+		console.log(user + ": " + message);
+	}
+
         break;
         
         case 'cease':
