@@ -2,6 +2,7 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var colors = require('colors');
+var readline = require('readline');
 var auth = require('./auth.json');
 var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./localstorage');
@@ -21,6 +22,11 @@ var seconds;
 
 var chatlog = true;
 
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
 // Logger stuff (I don't fully understand this)
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
@@ -39,6 +45,8 @@ bot.on('ready', function (evt) {
     logger.info(bot.username + ' - (' + bot.id + ')');
     console.log("Ready!");
 });
+
+
 
 bot.on('disconnect', function(erMsg, code) {
     console.log('------ Oopsie woopsie uwu, we make a fucky wucky, I disconnected with code'.red, code, 'for reason:'.red, erMsg, '------ '.red);
