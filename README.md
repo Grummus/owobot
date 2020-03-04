@@ -1,3 +1,9 @@
+THIS REPO IS OLD! PLS DISREGARD!
+=======
+new one can be found at https://github.com/Grummus/owobot2
+
+
+
 _"It's the worst thing I've ever added to my server."_  
 -Hampoon
 =======
